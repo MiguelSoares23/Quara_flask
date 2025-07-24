@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Roupas Cadastradas</h2>
+<a href="{{ url_for('produtos.adicionar_roupa') }}">Nova Roupa</a>
+<ul>
+  {% for roupa in roupas %}
+    <li>
+      <strong>{{ roupa.nome }}</strong> - {{ roupa.tamanho }} - R$ {{ roupa.preco }}
+      <a href="{{ url_for('produtos.editar_roupa', id=roupa.id) }}">Editar</a>
+      <form action="{{ url_for('produtos.deletar_roupa', id=roupa.id) }}" method="post" style="display:inline;">
+        <button type="submit">Excluir</button>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

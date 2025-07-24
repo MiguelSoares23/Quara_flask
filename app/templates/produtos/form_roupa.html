@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ 'Editar' if editar else 'Nova' }} Roupa</h2>
+<form method="post">
+  {{ form.hidden_tag() }}
+  {{ form.nome.label }} {{ form.nome(size=32) }}<br>
+  {{ form.descricao.label }} {{ form.descricao(rows=3) }}<br>
+  {{ form.tamanho.label }} {{ form.tamanho() }}<br>
+  {{ form.tipo.label }} {{ form.tipo() }}<br>
+  {{ form.preco.label }} {{ form.preco() }}<br>
+  {{ form.categoria.label }} {{ form.categoria() }}<br>
+  {{ form.submit() }}
+</form>
+{% endblock %}

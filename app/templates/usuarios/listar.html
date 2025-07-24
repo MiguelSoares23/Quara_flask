@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Lista de Usuários</h2>
+<a href="{{ url_for('usuarios.criar') }}" class="btn btn-success mb-3">Novo Usuário</a>
+<table class="table">
+  <thead><tr><th>Nome</th><th>Email</th><th>Tipo</th><th>Ações</th></tr></thead>
+  <tbody>
+    {% for u in usuarios %}
+      <tr>
+        <td>{{ u.nome }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.tipo }}</td>
+        <td>
+          {% if u.tipo == 'admin' %}
+            <span class="badge bg-danger">Protegido</span>
+          {% else %}
+            <a href="{{ url_for('usuarios.editar', id=u.id) }}" class="btn btn-warning btn-sm">Editar</a>
+            <form method="post" action="{{ url_for('usuarios.deletar', id=u.id) }}" style="display:inline;">
+              <button class="btn btn-danger btn-sm" onclick="return confirm('Confirmar exclusão?')">Excluir</button>
+            </form>          
+          {% endif %}
+
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

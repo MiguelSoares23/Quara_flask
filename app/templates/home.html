@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  {% if usuario_id %}
+    <h1>Bem-vindo de volta!</h1>
+    <p>Você está logado como: <strong>{{ usuario_tipo }}</strong></p>
+    
+    {% if usuario_tipo == "admin" %}
+      <a href="{{ url_for('usuarios.listar') }}" class="btn btn-primary mt-3">Gerenciar Usuários</a>
+    {% elif usuario_tipo == "vendedor" %}
+      <a href="{{ url_for('roupa.listar_roupas') }}" class="btn btn-success mt-3">Gerenciar Roupas para Doação</a>
+    {% else %}
+      <p>Explore o bazar!</p>
+    {% endif %}
+    
+    <a href="{{ url_for('auth.logout') }}" class="btn btn-danger mt-3">Sair</a>
+  
+  {% else %}
+    <h1>Bem-vindo ao Bazar Solidário!</h1>
+    <p>Faça login ou cadastre-se para participar:</p>
+    <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Login</a>
+    <a href="{{ url_for('auth.cadastro') }}" class="btn btn-secondary">Cadastro</a>
+  {% endif %}
+</div>
+{% endblock %}

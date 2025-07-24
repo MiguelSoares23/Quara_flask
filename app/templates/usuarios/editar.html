@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ 'Editar' if usuario else 'Novo' }} Usuário</h2>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div class="form-group">{{ form.nome.label }}{{ form.nome(class="form-control") }}</div>
+  <div class="form-group">{{ form.email.label }}{{ form.email(class="form-control") }}</div>
+  {% if not usuario %}
+    <div class="form-group">{{ form.senha.label }}{{ form.senha(class="form-control") }}</div>
+  {% endif %}
+  <div class="form-group">{{ form.tipo.label }}{{ form.tipo(class="form-control") }}</div>
+  <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+{% if usuario %}
+  <form method="post" action="{{ url_for('usuarios.deletar', id=usuario.id) }}" style="display:inline;">
+    <button class="btn btn-danger mt-3" onclick="return confirm('Confirmar exclusão?')">Excluir</button>
+  </form>
+{% endif %}
+
+{% endblock %}

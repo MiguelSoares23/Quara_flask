@@ -16,5 +16,4 @@ class Roupa(db.Model):
 
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'), nullable=False)
 
-    venda = db.relationship('Venda', backref='roupa', uselist=False)
     doacao = db.relationship('Doacao', backref='roupa', uselist=False)

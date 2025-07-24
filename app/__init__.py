@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_wtf import CSRFProtect
 from dotenv import load_dotenv
 import os
+from datetime import datetime
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -12,7 +13,7 @@ migrate = Migrate()
 def create_db(app):
     with app.app_context():
         db.create_all()
-        create_admin()
+        create_admin(emailField="sergio_hot@gmail.com", passwordField="123_hot")
         print("✅Database created successfully.")
 
 
@@ -26,6 +27,7 @@ def create_admin(emailField=None, passwordField=None):
         print("⚠️Admin user already exists.")
         return
     
+    # Create a new admin user
     user = Usuario(
         nome="Admin",
         email=emailField or "admin@gmail.com",
@@ -65,5 +67,8 @@ def create_app():
     app.register_blueprint(auth_bp)
     from app.routes.usuario import usuarios_bp
     app.register_blueprint(usuarios_bp)
+    from app.routes.doacao import doacoes_bp
+    app.register_blueprint(doacoes_bp)
+
 
     return app

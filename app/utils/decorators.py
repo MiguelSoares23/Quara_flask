@@ -27,3 +27,4 @@ def doador_requerido(f):
             return redirect(url_for("main.home"))
         return f(*args, **kwargs)
     return decorated_function
+

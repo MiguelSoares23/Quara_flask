@@ -1,15 +1,26 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from app.models import db, Roupa
 from app.forms.roupa_form import RoupaForm
+from app.utils.decorators import login_requerido, admin_requerido
 
 produtos = Blueprint('produtos', __name__, template_folder='../templates/produtos', url_prefix='/produtos')
 
+
 @produtos.route('/')
+@login_requerido
+@admin_requerido
 def listar_roupas():
     roupas = Roupa.query.all()
     return render_template('lista_roupas.html', roupas=roupas)
 
+@produtos.route('/procurar')
+def procurar():
+    roupas = Roupa.query.all()  # ou algum filtro por pesquisa
+    return render_template('procurar.html', roupas=roupas)
+
+
 @produtos.route('/adicionar', methods=['GET', 'POST'])
+@login_requerido
 def adicionar_roupa():
     form = RoupaForm()
     if form.validate_on_submit():
@@ -29,7 +40,10 @@ def adicionar_roupa():
         return redirect(url_for('produtos.listar_roupas'))
     return render_template('form_roupa.html', form=form)
 
+
 @produtos.route('/<int:id>/editar', methods=['GET', 'POST'])
+@login_requerido
+@admin_requerido
 def editar_roupa(id):
     roupa = Roupa.query.get_or_404(id)
     form = RoupaForm(obj=roupa)
@@ -46,6 +60,8 @@ def editar_roupa(id):
     return render_template('form_roupa.html', form=form, editar=True)
 
 @produtos.route('/<int:id>/deletar', methods=['POST'])
+@login_requerido
+@admin_requerido
 def deletar_roupa(id):
     roupa = Roupa.query.get_or_404(id)
     db.session.delete(roupa)

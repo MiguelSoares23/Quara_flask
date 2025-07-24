@@ -5,22 +5,86 @@
   {% if usuario_id %}
     <h1>Bem-vindo de volta!</h1>
     <p>Você está logado como: <strong>{{ usuario_tipo }}</strong></p>
-    
+
     {% if usuario_tipo == "admin" %}
       <a href="{{ url_for('usuarios.listar') }}" class="btn btn-primary mt-3">Gerenciar Usuários</a>
-    {% elif usuario_tipo == "vendedor" %}
-      <a href="{{ url_for('roupa.listar_roupas') }}" class="btn btn-success mt-3">Gerenciar Roupas para Doação</a>
+    {% elif usuario_tipo == "doador" %}
+      <a href="{{ url_for('produtos.listar_roupas') }}" class="btn btn-success mt-3">Gerenciar Roupas para Doação</a>
     {% else %}
       <p>Explore o bazar!</p>
     {% endif %}
-    
+
     <a href="{{ url_for('auth.logout') }}" class="btn btn-danger mt-3">Sair</a>
-  
   {% else %}
-    <h1>Bem-vindo ao Bazar Solidário!</h1>
-    <p>Faça login ou cadastre-se para participar:</p>
-    <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Login</a>
-    <a href="{{ url_for('auth.cadastro') }}" class="btn btn-secondary">Cadastro</a>
+    <h1 class="text-center">Doar é vestir alguém de esperança.</h1>
+    <p class="text-center">Aqui, sua doação encontra destino certo: chega a quem precisa e faz a diferença, peça por peça, gesto por gesto.</p>
   {% endif %}
 </div>
+
+<hr>
+
+<!-- Hero + Carrossel -->
+<section class="hero">
+  <div class="section1_tx text-center">
+    <h2 class="vermelho">Peças para doação</h2>
+  </div>
+
+  <div class="hero-imagem-container">
+    <!-- Slider 1 a 4 aqui -->
+    {% for i in range(1, 5) %}
+    <div class="slider-container" id="slider{{ i }}">
+      <div class="slider-track">
+        {% for j in range(1, 5) %}
+        <div class="slide">
+          <figure>
+            <img src="{{ url_for('static', filename='images/img' ~ ((i - 1)*4 + j) ~ '.jpg') }}" class="hero-imagem" alt="Imagem {{ (i - 1)*4 + j }}">
+          </figure>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Cards de produtos exemplo -->
+<section class="section2 container mt-5">
+  <div class="row">
+    <div class="col-md-3">
+      <img src="{{ url_for('static', filename='images/img-exemplo1.jpg') }}" class="img-fluid">
+      <p><strong>Calça Flare</strong><br>R. das Rosas - Piedade</p>
+    </div>
+    <div class="col-md-3">
+      <img src="{{ url_for('static', filename='images/img-exemplo2.jpg') }}" class="img-fluid">
+      <p><strong>Casaco Feminino</strong><br>Rua Abrigo Central</p>
+    </div>
+    <div class="col-md-3">
+      <img src="{{ url_for('static', filename='images/img-exemplo3.jpg') }}" class="img-fluid">
+      <p><strong>Blusa de alça Rosa</strong><br>1ª Travessa Fernandes Vieira</p>
+    </div>
+    <div class="col-md-3">
+      <img src="{{ url_for('static', filename='images/img-exemplo4.jpg') }}" class="img-fluid">
+      <p><strong>Sapato All Star</strong><br>Rua - Vila Rica</p>
+    </div>
+  </div>
+</section>
+
+<!-- Botão Procurar -->
+<div class="text-center my-4">
+  <a href="{{ url_for('produtos.procurar') }}" class="btn btn-danger">Procurar</a>
+</div>
+
+<!-- Seção Informativa -->
+<section class="section3 container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="vermelho">Como você pode nos ajudar?</h3>
+      <p>Você pode ajudar doando roupas, alimentos ou tempo como voluntário. Cada gesto conta.</p>
+    </div>
+    <div class="col-md-6">
+      <h3 class="vermelho">Por que é importante ajudar?</h3>
+      <p>Cada doação transforma vidas, oferecendo esperança e dignidade. Faça a diferença!</p>
+    </div>
+  </div>
+</section>
 {% endblock %}

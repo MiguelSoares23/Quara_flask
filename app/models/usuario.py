@@ -10,7 +10,6 @@ class Usuario(db.Model):
     tipo = db.Column(db.String(20), default='usuario')  # 'admin', 'usuario', 'doador', etc.
 
     roupas = db.relationship('Roupa', backref='usuario', lazy=True)
-    compras = db.relationship('Venda', backref='comprador', lazy=True)
     doacoes = db.relationship('Doacao', backref='doador', lazy=True)
 
     def set_senha(self, senha):

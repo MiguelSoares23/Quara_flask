@@ -23,21 +23,7 @@
                 </div>
             </div>
 
-            <div class="input-box">
-                {{ form.cpf.label(class="form-label") }}
-                <div class="input-field">
-                    {{ form.cpf(class="form-control", placeholder="Ex.: 12345678900") }}
-                    <i class="fa-regular fa-id-card"></i>
-                </div>
-            </div>
-
-            <div class="input-box">
-                {{ form.aniversario.label(class="form-label") }}
-                <div class="input-field">
-                    {{ form.aniversario(class="form-control") }}
-                    <i class="fa-solid fa-calendar-day"></i>
-                </div>
-            </div>
+            
 
             <div class="input-box">
                 {{ form.email.label(class="form-label") }}
@@ -75,5 +61,5 @@
     </form>
 </main>
 
-<script src="{{ url_for('static', filename='javascript/formulario.js') }}"></script>
+<!--<script src="{{ url_for('static', filename='javascript/formulario.js') }}"></script>!-->
 {% endblock %}
